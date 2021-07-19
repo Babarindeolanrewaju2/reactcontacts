@@ -3,11 +3,27 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { Provider } from 'react-redux';
+import contactReducer from "./redux/contactReducer";
+import contactActions from "./redux/actions";
+import thunk from "redux-thunk"
+import {createStore, compose, applyMiddleware} from 'redux';
+import 'antd/dist/antd.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
+
+const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const store = createStore(
+  contactReducer,
+  composeEnhancer(applyMiddleware(thunk))
+)
+
+// store.dispatch(contactActions.deleteContact(17385));
 
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider store={store}>
     <App />
-  </React.StrictMode>,
+  </Provider>,
   document.getElementById('root')
 );
 
